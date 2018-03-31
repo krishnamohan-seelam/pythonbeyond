@@ -9,7 +9,7 @@ def main():
     print("trying to import helper module")
     from helper import helper
     helper.print_details()
-    sys.path.append('F:\projects\pyprojects\extrahelper')
+    sys.path.append(r'F:\projects\pyprojects\extrahelper')
     from extrahelper import extrahelper
     extrahelper.print_extrahelper()
     print("Try to comment sys.path.append and execute the program")
