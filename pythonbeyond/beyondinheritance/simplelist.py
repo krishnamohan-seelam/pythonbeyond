@@ -1,6 +1,8 @@
 """
 SimpleList class: Minimized version of List
 """
+
+
 class SimpleList:
     def __init__(self, items):
         self._items = list(items)
@@ -10,8 +12,6 @@ class SimpleList:
         L.add(object) -> None -- append object to end
         """
         self._items.append(item)
-
-    
 
     def __getitem__(self, index):
         """
@@ -37,9 +37,12 @@ class SimpleList:
         """
         return "{}({!r})".format(self.__class__.__name__, self._items)
 
+
 """
 SortedList class: Minimized version of List with inbuilt sorting mechanism
 """
+
+
 class SortedList(SimpleList):
     def __init__(self, items=()):
         super().__init__(items)
@@ -48,25 +51,27 @@ class SortedList(SimpleList):
     def add(self, item):
         super().add(item)
         self.sort()
+
+
 """
 IntList class: Minimized version of List,allows only integers 
 """
+
+
 class IntList(SimpleList):
     def __init__(self, items=()):
-        for x in items :self.validate(x)
+        for x in items:
+            self.validate(x)
         super().__init__(items)
-         
 
     @staticmethod
     def validate(x):
         """
         Raises ValueError for non integers 
         """
-        if not isinstance(x,(int)):
+        if not isinstance(x, (int)):
             raise ValueError("only integers")
 
     def add(self, item):
         self.validate(item)
         super().add(item)
-         
-

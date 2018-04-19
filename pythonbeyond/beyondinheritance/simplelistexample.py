@@ -1,23 +1,21 @@
-from simplelist import SimpleList,SortedList,IntList
+from simplelist import SimpleList, SortedList, IntList
 
 
 def main():
-    sl = SimpleList([1,2,34,67])
+    sl = SimpleList([1, 2, 34, 67])
     print(sl)
     sl.add(100)
     print(sl)
-    sortl = SortedList([45,23,67,33,20,0])
+    sortl = SortedList([45, 23, 67, 33, 20, 0])
     print(sortl)
     sortl.add(100)
-    intl = IntList([0,1,2,3,4])
+    intl = IntList([0, 1, 2, 3, 4])
     print(intl)
 
     try:
         intl.add('x')
     except ValueError as ve:
         print(ve)
-
-
 
 
 if __name__ == '__main__':
