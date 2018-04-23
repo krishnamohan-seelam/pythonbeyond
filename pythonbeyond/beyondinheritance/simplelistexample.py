@@ -1,4 +1,4 @@
-from simplelist import SimpleList, SortedList, IntList
+from simplelist import SimpleList, SortedList, IntList,SortedIntList
 
 
 def main():
@@ -11,7 +11,8 @@ def main():
     sortl.add(100)
     intl = IntList([0, 1, 2, 3, 4])
     print(intl)
-
+    sortil = SortedIntList([45, 23, 67, 33, 20, 0])
+    print(sortil)
     try:
         intl.add('x')
     except ValueError as ve:

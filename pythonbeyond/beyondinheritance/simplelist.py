@@ -70,8 +70,11 @@ class IntList(SimpleList):
         Raises ValueError for non integers 
         """
         if not isinstance(x, (int)):
-            raise ValueError("only integers")
+            raise ValueError("only integers are allowed")
 
     def add(self, item):
         self.validate(item)
         super().add(item)
+
+class SortedIntList(IntList, SortedList):
+    pass
