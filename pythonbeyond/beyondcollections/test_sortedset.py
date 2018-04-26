@@ -62,5 +62,28 @@ class TestSizedProtocol(unittest.TestCase):
         self.assertEqual(len(s), 2)
 
 
+class TestIterableProtocol(unittest.TestCase):
+
+    def setUp(self):
+        self.s = SortedSet([1, 4, 3, 8, 5, 2])
+
+    def test_iter(self):
+        i = iter(self.s)
+        self.assertEqual(next(i), 1)
+        self.assertEqual(next(i), 2)
+        self.assertEqual(next(i), 3)
+        self.assertEqual(next(i), 4)
+        self.assertEqual(next(i), 5)
+        self.assertEqual(next(i), 8)
+        self.assertRaises(StopIteration, lambda: next(i))
+
+    def test_for_loop(self):
+        index = 0
+        expected = [1, 2, 3, 4, 5, 8]
+        for item in self.s:
+            self.assertEqual(item, expected[index])
+            index += 1
+
+
 if __name__ == '__main__':
     unittest.main()
