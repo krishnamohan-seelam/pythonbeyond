@@ -1,13 +1,86 @@
+from collections.abc import Sequence,Set
+from bisect import bisect_left
 
-class SortedSet:
+from itertools import chain
+
+class SortedSet(Sequence,Set):
     def __init__(self,items =None):
         self._items = sorted(set(items)) if  items is not None else []
     
     def __contains__(self,item):
-        return item in self._items
-    
+        """Overrides __contains__ to  implement container protocol"""
+        try:
+            self.index(item)
+            return True
+        except ValueError:
+            return False
+            
+    def index(self, item):
+        index = bisect_left(self._items, item)
+        if (index != len(self._items)) and (self._items[index] == item):
+            return index
+        raise ValueError("{} not found".format(repr(item)))
+        
     def __len__(self):
+        """Overrides __len__ to  implement sized protocol"""
         return len(self._items)
     
     def __iter__(self):
+        """Overrides __iter__ to  implement iterable protocol"""
         return iter(self._items)
+    
+    def __getitem__(self, index):
+        """Overrides __getitem__ to return an item or slice of SortedSet"""
+        result  = self._items[index]
+        return SortedSet(result) if isinstance(index,slice) else result
+    
+    def __repr__(self):
+        """Overrides __repr__ to return repr of SortedSet """
+        return "SortedSet({})".format(
+            repr(self._items) if self._items else ''
+        )
+    
+    def __eq__(self,otherobj):
+        """"Overrides __eq__ to  compare two objects for SortedSet equivalence
+        """
+        if not isinstance(otherobj,SortedSet):
+            return NotImplemented
+        return self._items == otherobj._items
+
+    def __ne__(self,otherobj):
+        """Overrides __ne__ to  compare two objects for SortedSet equivalence
+        """
+        if not isinstance(otherobj,SortedSet):
+            return NotImplemented
+        return self._items != otherobj._items
+    
+    def count(self,item):
+       return int(item in self._items)
+    
+    def __add__(self, rhs):
+        return SortedSet(chain(self._items, rhs._items))
+
+    def __mul__(self, rhs):
+        return self if rhs > 0 else SortedSet()
+
+    def __rmul__(self, lhs):
+        return self * lhs
+
+    def issubset(self, iterable):
+        return self <= SortedSet(iterable)
+
+    def issuperset(self, iterable):
+        return self >= SortedSet(iterable)
+
+    def intersection(self, iterable):
+        return self & SortedSet(iterable)
+
+    def union(self, iterable):
+        return self | SortedSet(iterable)
+
+    def symmetric_difference(self, iterable):
+        return self ^ SortedSet(iterable)
+
+    def difference(self, iterable):
+        return self - SortedSet(iterable)
+    
