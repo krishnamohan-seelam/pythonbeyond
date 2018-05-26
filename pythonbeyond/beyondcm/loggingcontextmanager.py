@@ -15,7 +15,6 @@ def logging_context_manager():
         print(sys.exc_info())
     
 
-
 def print_message( message):
         print("{}:{}".format(sys._getframe(1).f_code.co_name,
                                 message if message else ""))
@@ -32,6 +31,7 @@ def main():
 
     except ValueError:
         print("ValueError occured")
+        
 
 if __name__ == '__main__':
     main()
